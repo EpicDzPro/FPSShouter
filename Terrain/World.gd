@@ -6,7 +6,7 @@ var allowed = true
 var rnd = RandomNumberGenerator.new()
 var player : CharacterBody3D = null
 @onready var button = $Control/Button
-var spawnTime = 5
+var spawnTime = 1
 var lasttr = Transform3D()
 var trs = []
 
@@ -23,9 +23,9 @@ func spawn():
 	add_child(Turret)
 	trs.append(Turret)
 	rnd.randomize()
-	var x = rnd.randi_range(-20,20)
+	var x = rnd.randi_range(-200,200)
 	rnd.randomize()
-	var z = rnd.randi_range(-20,20)
+	var z = rnd.randi_range(-200,200)
 	Turret.position = Vector3(z,4,x)
 	Turret.player = player
 	await get_tree().create_timer(spawnTime).timeout

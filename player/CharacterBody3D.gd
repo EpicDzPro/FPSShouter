@@ -21,9 +21,7 @@ var Health = maxHealth
 var killCount = 0
 
 var pickedItem : RigidBody3D = null
-@onready var pickRay = $head/RayCast3D
 @onready var pickMarker = $head/Marker3D
-
 
 @onready var model = $CollisionShape3D
 @onready var hands = $hands
@@ -66,10 +64,10 @@ func _input(event):
 		if pickedItem != null:
 			#pickedItem.apply_force(-1000*model.global_basis.z)
 			pickedItem = null
-		elif pickRay.is_colliding():
-			if pickRay.get_collider() is RigidBody3D:
-				pickedItem = pickRay.get_collider()
-func _process(_delta):
+		elif ray.is_colliding():
+			if ray.get_collider() is RigidBody3D:
+				pickedItem = ray.get_collider()
+func _physics_process(_delta):
 	
 	if pickedItem != null:
 		var a = pickMarker.global_position
@@ -82,19 +80,19 @@ func _process(_delta):
 	gunR.global_transform = transformR
 	gunL.global_transform = transformL
 	
-	hands.quaternion = hands.quaternion.slerp(camera.quaternion.normalized(),_delta*10)
+	hands.quaternion = hands.quaternion.slerp(camera.quaternion.normalized(),0.5)
 	var point = camera.to_global(Vector3.FORWARD * 100)
 	if ray.is_colliding():
 		point = ray.get_collision_point()
 	
-	#gun.look_at(point)
-	#gun2.look_at(point)
+	gunR.look_at(point)
+	gunL.look_at(point)
 	
 	if Input.is_action_pressed("fire"):
 			gunR.fire()
 			gunL.fire()
 	
-	crosshair.scale = crosshair.scale.lerp(Vector2(1,1),_delta*10)
+	crosshair.scale = crosshair.scale.lerp(Vector2(1,1),0.5)
 	
 	
 	process_input()
