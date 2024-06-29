@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkemnd2rlf8th"]
+
+[ext_resource type="Script" path="res://Terrain/Planet.gd" id="1_t2ibo"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sljba"]
+radius = 8.0
+
+[node name="Planet" type="StaticBody3D"]
+script = ExtResource("1_t2ibo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_sljba")

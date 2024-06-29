@@ -1,0 +1,204 @@
+[gd_scene load_steps=14 format=3 uid="uid://edorqdeo6b5m"]
+
+[ext_resource type="PackedScene" uid="uid://cxyw0b5p5f3mb" path="res://player/character_body_3d.tscn" id="1_4j8eb"]
+[ext_resource type="Script" path="res://Terrain/World.gd" id="1_pbnpa"]
+[ext_resource type="Script" path="res://Projectile/RayProjectileManeger.gd" id="2_dw10u"]
+[ext_resource type="PackedScene" uid="uid://bney02vppic2a" path="res://weapons/turret.tscn" id="4_774hm"]
+[ext_resource type="Script" path="res://player/Label.gd" id="5_4m7it"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rpir5"]
+
+[sub_resource type="Sky" id="Sky_gqnse"]
+sky_material = SubResource("ProceduralSkyMaterial_rpir5")
+
+[sub_resource type="Environment" id="Environment_etg0v"]
+background_color = Color(0.588235, 0, 0, 1)
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_gqnse")
+tonemap_mode = 3
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.453491, 0.523979, 0.849638, 1)
+adjustment_enabled = true
+adjustment_saturation = 1.2
+
+[sub_resource type="LabelSettings" id="LabelSettings_851yv"]
+font_size = 64
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qktj6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6xi4f"]
+bounce = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_87p4c"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hrpyj"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_pbnpa")
+playerScene = ExtResource("1_4j8eb")
+turret = ExtResource("4_774hm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_etg0v")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 64, 0)
+light_energy = 10.0
+omni_range = 256.0
+
+[node name="Manger" type="Area3D" parent="."]
+script = ExtResource("2_dw10u")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -44.0
+offset_right = 128.0
+offset_bottom = 44.0
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_851yv")
+script = ExtResource("5_4m7it")
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -64.0
+offset_right = 256.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Start"
+
+[node name="boxes" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72637, 10.04)
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26726, 1.94461, 0)
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95266, 1.44539, 0)
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52821, -10.8495)
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.56699, 2.80456, -5.50341)
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.1205, 1.5294, -4.34861)
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+size = Vector3(1, 10, 20)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+operation = 2
+use_collision = true
+collision_layer = 5
+collision_mask = 5
+radius = 257.0
+height = 20.0
+sides = 16
+material = SubResource("StandardMaterial3D_qktj6")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+operation = 2
+radius = 256.0
+height = 20.0
+sides = 16
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.978379, 0.206819, 0, -0.206819, 0.978379, 0, 6.87876, 23.124)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.74961, 9.22023)
+physics_material_override = SubResource("PhysicsMaterial_6xi4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D"]
+shape = SubResource("SphereShape3D_87p4c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D"]
+mesh = SubResource("SphereMesh_hrpyj")
+
+[node name="RigidBody3D5" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.74961, -1.28475)
+physics_material_override = SubResource("PhysicsMaterial_6xi4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D5"]
+shape = SubResource("SphereShape3D_87p4c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D5"]
+mesh = SubResource("SphereMesh_hrpyj")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.74961, 16.8189)
+physics_material_override = SubResource("PhysicsMaterial_6xi4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D2"]
+shape = SubResource("SphereShape3D_87p4c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D2"]
+mesh = SubResource("SphereMesh_hrpyj")
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.1673, 3.74961, 9.22023)
+physics_material_override = SubResource("PhysicsMaterial_6xi4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D3"]
+shape = SubResource("SphereShape3D_87p4c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D3"]
+mesh = SubResource("SphereMesh_hrpyj")
+
+[node name="RigidBody3D4" type="RigidBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.8427, 3.74961, 14.3239)
+physics_material_override = SubResource("PhysicsMaterial_6xi4f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D4"]
+shape = SubResource("SphereShape3D_87p4c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D4"]
+mesh = SubResource("SphereMesh_hrpyj")
+
+[connection signal="body_shape_entered" from="Manger" to="Manger" method="_on_body_shape_entered"]
+[connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]
