@@ -3,7 +3,7 @@ extends Node3D
 signal  fired
 var shoot = true
 @onready var player= $AnimationPlayer
-@onready var start = $gun/start
+@onready var start = $start
 @onready var sound = $AudioStreamPlayer3D
 @export var mesh: CapsuleMesh
 @export var bulletCapacity : int = 300

@@ -3,16 +3,16 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ctwmec7h7qqc2"
-path.etc2="res://.godot/imported/Flare00.PNG-3108776e3a28f9792aa0e9381721a049.etc2.ctex"
+path.s3tc="res://.godot/imported/Flare00.PNG-3108776e3a28f9792aa0e9381721a049.s3tc.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://particles/Flare00.PNG"
-dest_files=["res://.godot/imported/Flare00.PNG-3108776e3a28f9792aa0e9381721a049.etc2.ctex"]
+dest_files=["res://.godot/imported/Flare00.PNG-3108776e3a28f9792aa0e9381721a049.s3tc.ctex"]
 
 [params]
 

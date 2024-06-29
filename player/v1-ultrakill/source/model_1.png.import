@@ -3,9 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://o7fnry2bj24"
-path.etc2="res://.godot/imported/model_1.png-2dbbdcb71e3275d51006eedfbb42a849.etc2.ctex"
+path.s3tc="res://.godot/imported/model_1.png-2dbbdcb71e3275d51006eedfbb42a849.s3tc.ctex"
 metadata={
-"imported_formats": ["etc2_astc"],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +13,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://player/v1-ultrakill/source/model_1.png"
-dest_files=["res://.godot/imported/model_1.png-2dbbdcb71e3275d51006eedfbb42a849.etc2.ctex"]
+dest_files=["res://.godot/imported/model_1.png-2dbbdcb71e3275d51006eedfbb42a849.s3tc.ctex"]
 
 [params]
 

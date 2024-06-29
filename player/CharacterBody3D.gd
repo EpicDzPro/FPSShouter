@@ -25,11 +25,11 @@ var pickedItem : RigidBody3D = null
 @onready var pickMarker = $head/Marker3D
 
 
-@onready var model = $Rig
+@onready var model = $CollisionShape3D
 @onready var hands = $hands
 @onready var camera = $head
-@onready var gun = $hands/Weapon
-@onready var gun2 = $hands/Weapon2
+@onready var gunR = $hands/WeaponR
+@onready var gunL = $hands/WeaponL
 @onready var ray = $hands/RayCast3D
 @onready var crosshair = $Control/CenterContainer
 @onready var healthBar = $Control/VBoxContainer/HBoxContainer/ProgressBar
@@ -39,20 +39,21 @@ var pickedItem : RigidBody3D = null
 
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	healthBar.max_value = maxHealth
 	healthBar.value = maxHealth
 	blood.texture.fill_to = Vector2.ONE
-	gun.fired.connect(gunfire)
-	gun2.fired.connect(gunfire)
+	gunR.fired.connect(gunfire)
+	gunL.fired.connect(gunfire)
 	
 func gunfire():
-	bulletLabel.text = "bulletCount :" + str(gun.bulletCount)+"/"+str(gun.bulletCapacity)
+	bulletLabel.text = "bulletCount :" + str(gunR.bulletCount)+"/"+str(gunR.bulletCapacity)
 	crosshair.scale = Vector2(3,3)
 
 func _input(event):
-	if event is InputEventJoypadMotion:
-		var x:float = event.relative.y * get_process_delta_time() * 0.5
-		var y:float = event.relative.x * get_process_delta_time() * 0.5
+	if event is InputEventMouseMotion:
+		var x:float = event.relative.y * get_process_delta_time() * 0.25
+		var y:float = event.relative.x * get_process_delta_time() * 0.25
 		
 		xx -= x
 		xx = clamp(xx,-PI/2,PI/2)
@@ -75,25 +76,23 @@ func _process(_delta):
 		var b = pickedItem.global_position
 		pickedItem.linear_velocity = (a-b)*8+ velocity
 	
-	var tr = hands.global_transform.translated_local(Vector3(0.5,-0.25,-1.25))
-	var tr2 = hands.global_transform.translated_local(Vector3(-0.5,-0.25,-1.25))
+	var transformR = hands.global_transform.translated_local(Vector3(0.5,-0.25,-1.25))
+	var transformL = hands.global_transform.translated_local(Vector3(-0.5,-0.25,-1.25))
 	
-	gun.global_transform = tr
-	gun2.global_transform = tr2
+	gunR.global_transform = transformR
+	gunL.global_transform = transformL
 	
 	hands.quaternion = hands.quaternion.slerp(camera.quaternion.normalized(),_delta*10)
-	var point : Vector3 = Vector3.ZERO
+	var point = camera.to_global(Vector3.FORWARD * 100)
 	if ray.is_colliding():
 		point = ray.get_collision_point()
-	else :
-		point = camera.to_global(Vector3.FORWARD * 100)
 	
 	#gun.look_at(point)
 	#gun2.look_at(point)
 	
 	if Input.is_action_pressed("fire"):
-			gun.fire()
-			gun2.fire()
+			gunR.fire()
+			gunL.fire()
 	
 	crosshair.scale = crosshair.scale.lerp(Vector2(1,1),_delta*10)
 	
@@ -195,6 +194,6 @@ func _on_area_3d_body_entered(body):
 		Health = clamp(Health,0,maxHealth)
 		body.queue_free()
 	if(body is RigidBody3D and body.is_in_group("bullet")):
-		gun.bulletCapacity += 30
-		gun2.bulletCapacity += 30
+		gunR.bulletCapacity += 30
+		gunL.bulletCapacity += 30
 		body.queue_free()
